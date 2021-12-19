@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Code",
-    "\\Inputs"
+    "\\Inputs",
+    "\\Inputs\\Day1",
+    "\\Inputs\\Day2",
+    "\\Inputs\\Day3"
   ],
-  "SelectedNode": "\\Code\\Day1.py",
+  "SelectedNode": "\\Code\\Day3.py",
   "PreviewInSolutionExplorer": false
 }
