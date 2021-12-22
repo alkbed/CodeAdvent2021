@@ -5,37 +5,48 @@ def doProblem1():
    for line in f:
       key = 0
       for input in line:
-         if int(input) == 1:
-            if key in countOnesDict.keys():
-               countOnesDict[key] += 1
-            else:
-               countOnesDict[key] = 1
-
-            countZerosDict[key] = 0
+         if input.isdigit():
+            if int(input) == 1:
+               if key in countOnesDict.keys():
+                  countOnesDict[key] += 1
+               else:
+                  countOnesDict[key] = 1
+               
+               if key not in countZerosDict.keys():
+                  countZerosDict[key] = 0
          
-         if int(input) == 0:
-            if key in countZerosDict.keys():
-               countZerosDict[key] += 1
-            else:
-               countZerosDict[key] = 1  
+            if int(input) == 0:
+               if key in countZerosDict.keys():
+                  countZerosDict[key] += 1
+               else:
+                  countZerosDict[key] = 1  
 
-            countOnesDict[key] = 0 
+               if key not in countOnesDict.keys():
+                  countOnesDict[key] = 0 
 
-         key += 1
+            key += 1
 
    gammaRate = []
+   epsilonRate = []
    for key in countOnesDict.keys():
-      maxCount = -1 
-      minCount = -1
       if (countOnesDict[key] > countZerosDict[key]):
-         maxCount = countOnesDict[key]   
-         minCount = countZerosDict[key]
+         gammaRate.append(1)
+         epsilonRate.append(0)
 
       else:
-         minCount = countOnesDict[key]   
-         maxCount = countZerosDict[key]
-      gammaRate.append()
+         gammaRate.append(0)
+         epsilonRate.append(1)
 
+   print("The multiplication is: " + str(ConvertBinaryArrayToInt(gammaRate) * ConvertBinaryArrayToInt(epsilonRate)))
+   
+def ConvertBinaryArrayToInt(binaryArr):
+   largestPower = len(binaryArr) - 1
+   constructionInt = 0
+   for bit in binaryArr:
+      constructionInt += bit * (2**largestPower)
+      largestPower -= 1
+
+   return constructionInt
 
 if __name__ == "__main__":
    doProblem1()
