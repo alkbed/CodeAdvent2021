@@ -1,3 +1,87 @@
+def doProblem2():
+   f = open(".\Inputs\Day3\day3p1.txt")
+   oxygenRatingNum = []
+   co2ScrubberRating = []
+   lineLength = len(f.readline()) - 1
+   f.seek(0)
+
+   stopOx = False
+   stopCO2 = False
+   for i in range(lineLength):
+      numOnesOx = 0
+      numZerosOx = 0
+      numOnesCO2 = 0
+      numZerosCO2 = 0
+      numLineMatchingOx = 0
+      numLineMatchingCO2 = 0
+      LineMatchingOx = {}
+      LineMatchingCO2 = {}
+      for line in f:
+         if (lineStartsWith(line, oxygenRatingNum) and not stopOx):
+            numLineMatchingOx += 1
+            LineMatchingOx[numLineMatchingOx] = line
+            if int(line[i]) == 1:
+               numOnesOx += 1
+            elif int(line[i]) == 0:
+               numZerosOx += 1
+
+         if (lineStartsWith(line, co2ScrubberRating) and not stopCO2):
+            numLineMatchingCO2 += 1
+            LineMatchingCO2[numLineMatchingCO2] = line
+            if int(line[i]) == 1:
+               numOnesCO2 += 1
+            elif int(line[i]) == 0:
+               numZerosCO2 += 1
+      f.seek(0)      
+      
+      if numLineMatchingOx == 1:
+         stopOx = True
+         oxygenRatingNum.clear()
+         for num in LineMatchingOx[numLineMatchingOx]:
+            if num.isdigit():
+               oxygenRatingNum.append(int(num))
+
+      if numLineMatchingCO2 == 1:
+         stopCO2 = True
+         co2ScrubberRating.clear()
+         for num in LineMatchingCO2[numLineMatchingCO2]:
+            if num.isdigit():
+               co2ScrubberRating.append(int(num))
+
+      if not stopOx:
+         if numOnesOx > numZerosOx:
+            oxygenRatingNum.append(1)
+
+         elif numOnesOx < numZerosOx:
+            oxygenRatingNum.append(0)
+
+         elif numOnesOx == numZerosOx:
+            oxygenRatingNum.append(1)
+
+      if not stopCO2:
+         if numOnesCO2 > numZerosCO2:
+            co2ScrubberRating.append(0)
+
+         elif numOnesCO2 < numZerosCO2:
+            co2ScrubberRating.append(1)
+
+         elif numOnesCO2 == numZerosCO2:
+            co2ScrubberRating.append(0)
+   
+   print("The oxygen rating is: " + str(ConvertBinaryArrayToInt(oxygenRatingNum)))
+   print(oxygenRatingNum)
+   print("The CO2 Scrubber rating is: " + str(ConvertBinaryArrayToInt(co2ScrubberRating)))
+   print(co2ScrubberRating)
+
+   print("Multiplied together:" + str(ConvertBinaryArrayToInt(co2ScrubberRating) * ConvertBinaryArrayToInt(oxygenRatingNum)))
+   
+def lineStartsWith(line, rating):
+   for i in range(len(rating)):
+      if int(line[i]) != rating[i]:
+         return False
+
+   return True
+
 def doProblem1():
    f = open(".\Inputs\Day3\day3p1.txt")
    countOnesDict = {}
@@ -50,3 +134,4 @@ def ConvertBinaryArrayToInt(binaryArr):
 
 if __name__ == "__main__":
    doProblem1()
+   doProblem2()
